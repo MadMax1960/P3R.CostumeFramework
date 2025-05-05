@@ -67,8 +67,7 @@ internal unsafe class CostumeTableService
         }
 
         File.WriteAllText("costumes.json", JsonSerializer.Serialize(costumesSerialized, new JsonSerializerOptions() { WriteIndented = true }));
-		File.WriteAllText("costumes_femc.json", JsonSerializer.Serialize(costumesSerialized, new JsonSerializerOptions() { WriteIndented = true })); // idk what this does im assuimg this will be fine
-	}
+    }
 
     private void UpdateCostumeTable()
     {
