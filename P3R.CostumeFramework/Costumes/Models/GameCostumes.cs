@@ -21,20 +21,17 @@ internal class GameCostumes : IReadOnlyList<Costume>
 
     private readonly List<Costume> costumes = [];
 
-	public GameCostumes(CostumeFilter filter, bool useExtendedOutfits, bool femcEnabled)
-	{
-		this.filterSetting = filter;
+    public GameCostumes(CostumeFilter filter, bool useExtendedOutfits)
+    {
+        this.filterSetting = filter;
 
-		var assembly = Assembly.GetExecutingAssembly();
-		var resourceName = femcEnabled
-			? "P3R.CostumeFramework.Resources.costumes_femc.json"
-			: "P3R.CostumeFramework.Resources.costumes.json";
+        var assembly = Assembly.GetExecutingAssembly();
+        var resourceName = "P3R.CostumeFramework.Resources.costumes.json";
+        using var stream = assembly.GetManifestResourceStream(resourceName)!;
+        using var reader = new StreamReader(stream);
+        var json = reader.ReadToEnd();
 
-        using var stream = assembly.GetManifestResourceStream(resourceName);
-		using var reader = new StreamReader(stream);
-		var json = reader.ReadToEnd();
-
-		var gameCostumes = JsonSerializer.Deserialize<Dictionary<Character, Costume[]>>(json)!;
+        var gameCostumes = JsonSerializer.Deserialize<Dictionary<Character, Costume[]>>(json)!;
         foreach (var charCostumes in gameCostumes)
         {
             this.costumes.AddRange(charCostumes.Value);

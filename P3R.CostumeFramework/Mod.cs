@@ -67,7 +67,7 @@ public class Mod : ModBase, IExports
         var eoEnabled = enabledMods.Contains("p3r.skins.extendedoutfits");
         var femcEnabled = enabledMods.Contains("p3rpc.femc");
 
-        this.costumeRegistry = new(ryo!, this.config.CostumeFilter, eoEnabled, femcEnabled);
+        this.costumeRegistry = new(ryo!, this.config.CostumeFilter, eoEnabled);
         this.costumeOverrides = new(this.costumeRegistry);
         this.costumeDesc = new(atlusAssets!);
         this.costumeMusic = new(bgme!, battleThemes!, this.costumeRegistry);

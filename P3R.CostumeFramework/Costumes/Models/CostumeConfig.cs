@@ -50,11 +50,7 @@ internal class CostumeConfig
             CostumeAssetType.AlloutSpecialMask => GetOrParseAssetPath(this.Allout.SpecialMaskPath),
             CostumeAssetType.AlloutText => GetOrParseAssetPath(this.Allout.TextPath),
             CostumeAssetType.AlloutPlg => GetOrParseAssetPath(this.Allout.PlgPath),
-			CostumeAssetType.CommonAnim => GetOrParseAssetPath(this.Anims.Common),
-			CostumeAssetType.DungeonAnim => GetOrParseAssetPath(this.Anims.Dungeon),
-			CostumeAssetType.CombineAnim => GetOrParseAssetPath(this.Anims.Combine),
-			CostumeAssetType.EventAnim => GetOrParseAssetPath(this.Anims.Event),
-			_ => throw new NotImplementedException(),
+            _ => throw new NotImplementedException(),
         };
 
     private static string? GetOrParseAssetPath(string? assetPath)
