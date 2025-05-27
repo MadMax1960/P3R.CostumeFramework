@@ -16,7 +16,7 @@ internal static class AssetUtils
     /// <returns></returns>
     public static string? GetAssetFile(Character character, int costumeId, CostumeAssetType type)
     {
-        var astreaDepContentDir = character >= Character.Metis ? "Xrd777" : "Astrea";
+        var astreaDepContentDir = character is Character.Metis or Character.AigisReal ? "Xrd777" : "Astrea";
         
         string? assetFile = type switch
         {

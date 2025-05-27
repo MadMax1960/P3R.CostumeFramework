@@ -35,6 +35,7 @@ internal class CostumeFactory
     {
         if (config.Name != null) costume.Name = config.Name;
         if (config.DisplayName != null) costume.Config.DisplayName = config.DisplayName;
+        if (config.RyoGroupId != null) costume.Config.RyoGroupId = config.RyoGroupId;
         if (config.Base.MeshPath != null) costume.Config.Base.MeshPath = config.Base.MeshPath;
         if (config.Costume.MeshPath != null) costume.Config.Costume.MeshPath = config.Costume.MeshPath;
         if (config.Face.MeshPath != null) costume.Config.Face.MeshPath = config.Face.MeshPath;
