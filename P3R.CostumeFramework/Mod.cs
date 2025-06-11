@@ -22,7 +22,7 @@ public class Mod : ModBase, IExports
     public const string NAME = "P3R.CostumeFramework";
 
     private readonly IModLoader modLoader;
-    private readonly IReloadedHooks? hooks; // test
+    private readonly IReloadedHooks? hooks; 
     private readonly ILogger log;
     private readonly IMod owner;
 
