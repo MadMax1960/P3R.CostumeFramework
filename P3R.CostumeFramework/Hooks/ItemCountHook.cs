@@ -36,7 +36,12 @@ internal class ItemCountHook
             {
                 return 0;
             }
-            
+
+            if (costume.RequiresDlc)
+            {
+                return 0;
+            }
+
             return 1;
         }
 

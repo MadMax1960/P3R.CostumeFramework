@@ -33,6 +33,8 @@ internal class CostumeConfig
 
     public CostumeAnims Anims { get; set; } = new();
 
+    public bool RequiresDlc { get; set; }
+
     public string? GetAssetFile(CostumeAssetType assetType)
         => assetType switch
         {

@@ -56,6 +56,8 @@ internal class CostumeFactory
         if (config.Anims.Dungeon != null) costume.Config.Anims.Dungeon = config.Anims.Dungeon;
         if (config.Anims.Event != null) costume.Config.Anims.Event = config.Anims.Event;
         if (config.Anims.Combine != null) costume.Config.Anims.Combine = config.Anims.Combine;
+
+        costume.Config.RequiresDlc = config.RequiresDlc;
     }
 
     public Costume? CreateFromExisting(Character character, string name, int costumeId)

@@ -52,6 +52,8 @@ internal class Costume
 
     public string RyoGroupId => this.Config.RyoGroupId ?? $"{this.Character}.{this.CostumeId}";
 
+    public bool RequiresDlc => this.Config.RequiresDlc;
+
     public void SetCostumeItemId(int costumeItemId)
     {
         this.CostumeItemId = costumeItemId;
