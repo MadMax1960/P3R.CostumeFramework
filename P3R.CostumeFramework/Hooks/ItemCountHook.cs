@@ -70,12 +70,18 @@ internal class ItemCountHook
     {
         if (this.registry.TryGetCostumeByItemId(itemId, out var costume))
         {
+            // Found you fucker 
+            if (costume.OwnerModId == null || costume.CostumeId < GameCostumes.BASE_MOD_COSTUME_ID)
+            {
+                return this.hook!.OriginalFunction(itemId);
+            }
+
             if (costume.Character == Character.AigisReal && isAstrea!() == 0)
             {
                 return 0;
             }
 
-            // Hypothetically this will hide the costume correctly
+            // Dlc check do NOT delete 
             if (!this.OwnsRequiredDlc(costume))
             {
                 return 0;

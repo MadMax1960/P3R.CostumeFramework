@@ -172,7 +172,11 @@ internal unsafe class CostumeHooks
         var newItemIndex = 357;
         foreach (var costume in this.registry.GetActiveCostumes())
         {
-            // Skip costumes with existing items.
+            if (costume.OwnerModId == null || costume.CostumeId < GameCostumes.BASE_MOD_COSTUME_ID)
+            {
+                continue;
+            }
+
             if (costume.CostumeItemId != default && costume.CostumeItemId < 357)
             {
                 continue;
