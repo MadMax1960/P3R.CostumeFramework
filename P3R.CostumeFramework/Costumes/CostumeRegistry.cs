@@ -22,9 +22,12 @@ internal class CostumeRegistry
     public Costume[] GetActiveCostumes()
         => this.Costumes.Where(this.IsActiveCostume).ToArray();
 
-    public Costume? GetRandomCostume(Character character)
+    public Costume? GetRandomCostume(Character character, Func<Costume, bool> canUseCostume)
     {
-        var costumes = this.GetActiveCostumes().Where(x => x.Character == character).ToArray();
+        var costumes = this.GetActiveCostumes()
+            .Where(x => x.Character == character && canUseCostume(x))
+            .ToArray();
+
         if (costumes.Length < 1)
         {
             return null;
@@ -96,6 +99,13 @@ internal class CostumeRegistry
         }
 
         return false;
+    }
+
+    private static bool IsRandomizableCostume(Costume costume)
+    {
+        return costume.OwnerModId != null
+            && costume.CostumeId >= GameCostumes.BASE_MOD_COSTUME_ID
+            && costume.CostumeId != GameCostumes.RANDOMIZED_COSTUME_ID;
     }
 
     private bool IsActiveCostume(Costume costume)

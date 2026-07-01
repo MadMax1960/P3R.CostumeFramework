@@ -53,10 +53,11 @@ internal unsafe class CostumeService
     )
     {
         this.itemEquip = new(registry);
+        this.itemCountHook = new(registry);
         this.costumeTable = new(dt, unreal, registry, useFemcPlayer);
         this.costumeShells = new(dt, this.costumeTable, useFemcPlayer);
         this.costumeAnims = new(uobjs, unreal, toolkitClasses, this.costumeTable);
-        this.costumeHooks = new(uobjs, unreal, registry, overrides, costumeDesc, costumeMusic, costumeAudio, this.costumeShells, this.itemEquip);
+        this.costumeHooks = new(uobjs, unreal, registry, overrides, costumeDesc, costumeMusic, costumeAudio, this.costumeShells, this.itemEquip, this.itemCountHook);
         this.costumeManager = new(this.costumeHooks);
         this.alloutService = new(dt, unreal, this.costumeManager);
         this.bustupPhysicsService = new(dt, unreal, this.costumeManager, this.costumeHooks);
@@ -66,7 +67,6 @@ internal unsafe class CostumeService
         this.cylinderService = new(dt, unreal, this.costumeManager, this.costumeHooks);
         this.visualTableService = new(dt, unreal, this.costumeManager, this.costumeHooks);
         this.weaponService = new(dt, unreal, this.costumeManager, this.costumeHooks);
-        this.itemCountHook = new(registry);
         this.costumeNameHook = new(uobjs, unreal, registry);
         this.costumeHeadPanel = new(this.costumeManager, toolkitMemory, toolkitObjects, toolkitSpawning, assetLoader);
         this.theurgiaService = new(dt, unreal, this.costumeManager, this.costumeHooks);

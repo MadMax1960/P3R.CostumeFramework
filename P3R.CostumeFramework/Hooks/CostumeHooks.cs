@@ -31,6 +31,8 @@ internal unsafe class CostumeHooks
     private readonly CostumeMusicService costumeMusic;
     private readonly CostumeRyoService costumeRyo;
     private readonly ItemEquip itemEquip;
+    private readonly ItemCountHook itemCountHook;
+
 
     private bool isCostumesRandom;
     private bool useOverworldCostumes;
@@ -44,7 +46,8 @@ internal unsafe class CostumeHooks
         CostumeMusicService costumeMusic,
         CostumeRyoService costumeAudio,
         CostumeShellService costumeShell,
-        ItemEquip itemEquip)
+        ItemEquip itemEquip,
+        ItemCountHook itemCountHook)
     {
         this.uobjects = uobjects;
         this.unreal = unreal;
@@ -55,6 +58,7 @@ internal unsafe class CostumeHooks
         this.costumeRyo = costumeAudio;
         this.costumeShells = costumeShell;
         this.itemEquip = itemEquip;
+        this.itemCountHook = itemCountHook;
 
         this.uobjects.FindObject("DatItemCostumeDataAsset", this.SetCostumeData);
 
@@ -135,7 +139,7 @@ internal unsafe class CostumeHooks
 
         // Apply randomized costumes.
         if ((isCostumesRandom || costumeId == GameCostumes.RANDOMIZED_COSTUME_ID)
-            && this.registry.GetRandomCostume(character) is Costume randomCostume)
+    && this.registry.GetRandomCostume(character, this.itemCountHook.CanUseForRandomizer) is Costume randomCostume)
         {
             costumeId = randomCostume.CostumeId;
             Log.Debug($"{nameof(SetCostumeId)} || {character} || Costume ID: {costumeId} || Randomized: {randomCostume.Name}");
@@ -172,7 +176,10 @@ internal unsafe class CostumeHooks
         var newItemIndex = 357;
         foreach (var costume in this.registry.GetActiveCostumes())
         {
-            if (costume.OwnerModId == null || costume.CostumeId < GameCostumes.BASE_MOD_COSTUME_ID)
+            var isRandomizedCostume = costume.CostumeId == GameCostumes.RANDOMIZED_COSTUME_ID;
+
+            if (!isRandomizedCostume &&
+                (costume.OwnerModId == null || costume.CostumeId < GameCostumes.BASE_MOD_COSTUME_ID))
             {
                 continue;
             }

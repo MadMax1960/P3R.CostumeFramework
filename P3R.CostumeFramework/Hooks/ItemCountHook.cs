@@ -71,7 +71,10 @@ internal class ItemCountHook
         if (this.registry.TryGetCostumeByItemId(itemId, out var costume))
         {
             // Found you fucker 
-            if (costume.OwnerModId == null || costume.CostumeId < GameCostumes.BASE_MOD_COSTUME_ID)
+            var isRandomizedCostume = costume.CostumeId == GameCostumes.RANDOMIZED_COSTUME_ID;
+
+            if (!isRandomizedCostume &&
+                (costume.OwnerModId == null || costume.CostumeId < GameCostumes.BASE_MOD_COSTUME_ID))
             {
                 return this.hook!.OriginalFunction(itemId);
             }
@@ -107,6 +110,31 @@ internal class ItemCountHook
         if (dlc.Velvet && !this.OwnsDlc(DLC_ITEM_VELVET)) return false;
 
         return true;
+    }
+
+    public bool CanUseForRandomizer(Costume costume)
+    {
+        if (costume.CostumeId == GameCostumes.RANDOMIZED_COSTUME_ID)
+        {
+            return false;
+        }
+
+        if (costume.Character == Character.AigisReal && isAstrea?.Invoke() == 0)
+        {
+            return false;
+        }
+
+        if (costume.OwnerModId != null && costume.CostumeId >= GameCostumes.BASE_MOD_COSTUME_ID)
+        {
+            return this.OwnsRequiredDlc(costume);
+        }
+
+        if (costume.CostumeItemId == default)
+        {
+            return false;
+        }
+
+        return this.hook?.OriginalFunction(COSTUME_ITEM_BASE + costume.CostumeItemId) > 0;
     }
 
     private bool OwnsDlc(int costumeIndex)
